@@ -20,7 +20,7 @@ const testSendMail = async () => {
                 "content-type": "application/json"
             },
             body: JSON.stringify({
-                sender: { name: "Librync Hub (API Test)", email: fromAddress },
+                sender: { name: "STUDY SYNC (API Test)", email: fromAddress },
                 to: [{ email: toEmail }],
                 subject: "Brevo API Integration Test",
                 htmlContent: "<h1>Success!</h1><p>The system is now using the Brevo HTTP API to bypass SMTP blocks.</p>"

@@ -11,7 +11,7 @@ export default defineConfig({
       injectRegister: 'auto',
       includeAssets: ['favicon.svg', 'icons.svg'],
       manifest: {
-        name: 'Librync Library Attendance System',
+        name: 'STUDY Library Attendance System',
         short_name: 'Librync',
         description: 'Secure student registry and smart library attendance monitor',
         theme_color: '#0B0D17',

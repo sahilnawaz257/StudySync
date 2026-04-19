@@ -19,7 +19,7 @@ export const sendMail = async (email, subject, html) => {
         "content-type": "application/json"
       },
       body: JSON.stringify({
-        sender: { name: "Librync Hub", email: fromAddress },
+        sender: { name: "STUDY SYNC", email: fromAddress },
         to: [{ email }],
         subject,
         htmlContent: html

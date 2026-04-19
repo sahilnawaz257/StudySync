@@ -7,7 +7,7 @@ let transporter = null;
 
 const getTransporter = () => {
   if (transporter) return transporter;
-  
+
   const host = process.env.SMTP_HOST || "smtp-relay.brevo.com";
   const port = Number(process.env.SMTP_PORT) || 587;
   const user = process.env.SMTP_USER;
@@ -29,9 +29,9 @@ const sendMail = async (email, subject, html) => {
   try {
     const mailer = getTransporter();
     const fromAddress = process.env.SENDER_EMAIL || "no-reply@librync.io";
-    
+
     const info = await mailer.sendMail({
-      from: `"Librync Hub" <${fromAddress}>`,
+      from: `"STUDY SYNC" <${fromAddress}>`,
       to: email,
       subject,
       html,
@@ -45,6 +45,6 @@ const sendMail = async (email, subject, html) => {
 };
 
 sendMail("sandeep08611@gmail.com", "Verification Test", "<h1>System Refactor Verified</h1>").then(res => {
-    console.log("Result:", res.success ? "SUCCESS" : "FAILED");
-    process.exit(res.success ? 0 : 1);
+  console.log("Result:", res.success ? "SUCCESS" : "FAILED");
+  process.exit(res.success ? 0 : 1);
 });

@@ -233,7 +233,7 @@ export default function AdminLoginPage() {
           <div className="mt-8 pt-6 border-t border-white/5 text-center space-y-4">
             <div className="flex items-center justify-center gap-2 text-xs text-gray-500 uppercase tracking-[0.2em]">
               <Sparkles size={14} className="text-emerald-500" />
-              <span>Librync Secured Portal</span>
+              <span>STUDY SYNC Secured Portal</span>
             </div>
             <Link to="/login" className="block text-sm text-gray-400 hover:text-emerald-400 transition-colors">
               Looking for the Student Portal?

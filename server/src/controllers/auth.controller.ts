@@ -32,9 +32,9 @@ export const login = async (req: Request, res: Response) => {
       const lockTimeRemaining = user.lockedUntil.getTime() - Date.now();
       if (lockTimeRemaining > 0) {
         const minutesWaiting = Math.ceil(lockTimeRemaining / (1000 * 60));
-        return res.status(403).json({ 
-          success: false, 
-          message: `Account temporarily locked due to multiple failed attempts. Please try again in ${minutesWaiting} minute${minutesWaiting > 1 ? 's' : ''}.` 
+        return res.status(403).json({
+          success: false,
+          message: `Account temporarily locked due to multiple failed attempts. Please try again in ${minutesWaiting} minute${minutesWaiting > 1 ? 's' : ''}.`
         });
       }
     }
@@ -227,7 +227,7 @@ export const forgotPassword = async (req: Request, res: Response) => {
       `
       <div style="font-family: sans-serif; padding: 20px; color: #333;">
         <h2 style="color: #10b981;">Registry Security Protocol</h2>
-        <p>A password reset was requested for your Librync account.</p>
+        <p>A password reset was requested for your STUDY SYNC account.</p>
         <div style="background: #f4f4f5; padding: 20px; border-radius: 12px; text-align: center; margin: 20px 0;">
           <span style="font-size: 24px; font-weight: bold; letter-spacing: 5px; color: #000;">${otp}</span>
         </div>
@@ -535,7 +535,7 @@ export const register = async (req: Request, res: Response) => {
       <div style="font-family: sans-serif; padding: 20px; color: #333; background: #fafafa;">
         <div style="max-width: 600px; margin: 0 auto; background: #fff; border-radius: 16px; padding: 40px; border: 1px solid #e5e7eb;">
           <h2 style="color: #2563eb; margin-bottom: 24px;">Activate Your Portal Access</h2>
-          <p>Please use the following 6-digit cipher to finalize your Librync Student Portal registration.</p>
+          <p>Please use the following 6-digit cipher to finalize your STUDY SYNC Student Portal registration.</p>
           <div style="background: #eff6ff; padding: 24px; border-radius: 12px; text-align: center; margin: 32px 0;">
             <span style="font-size: 32px; font-weight: bold; letter-spacing: 12px; color: #1e40af;">${otp}</span>
           </div>

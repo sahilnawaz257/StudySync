@@ -15,7 +15,7 @@ const transporter = nodemailer.createTransport({
 const sendMail = async (email, subject, html) => {
   try {
     const info = await transporter.sendMail({
-      from: process.env.SENDER_EMAIL || '"Librync Hub" <no-reply@librync.io>',
+      from: process.env.SENDER_EMAIL || '"STUDY SYNC" <no-reply@librync.io>',
       to: email,
       subject,
       html,
@@ -30,6 +30,6 @@ const sendMail = async (email, subject, html) => {
 };
 
 sendMail("sandeep08611@gmail.com", "Test Mail", "<h1>Hello</h1>").then(res => {
-    console.log("Result:", res);
-    process.exit(res.success ? 0 : 1);
+  console.log("Result:", res);
+  process.exit(res.success ? 0 : 1);
 });

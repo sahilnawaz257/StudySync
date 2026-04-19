@@ -61,7 +61,7 @@ export default function Sidebar() {
               className="flex flex-col"
             >
               <span className="font-black text-slate-900 dark:text-white text-base tracking-tighter leading-none">
-                LIBRYNC <span className="text-blue-500 italic">HUB</span>
+                STUDY<span className="text-blue-500 italic">SYNC</span>
               </span>
               <span className="text-[9px] font-black text-slate-500 dark:text-zinc-600 uppercase tracking-[0.3em] mt-1.5 flex items-center gap-1">
                 <span className="w-1.5 h-1.5 bg-emerald-500 rounded-full animate-pulse" />
