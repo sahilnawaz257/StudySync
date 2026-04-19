@@ -1,0 +1,148 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// attendance-system/prisma/schema.prisma
+generator client {
+  provider = "prisma-client-js" // Changed back to "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+
+model User {
+  id            Int      @id @default(autoincrement())
+  name          String
+  mobile        String   @unique
+  email         String?  @unique
+  passwordHash        String
+  role                String   @default("student")
+  status              String   @default("active")
+  createdAt           DateTime @default(now())
+  
+  // Security & Authentication
+  emailVerified       Boolean  @default(false)
+  verifyOtp           String?
+  verifyOtpExpiresAt  DateTime?
+  resetOtp            String?
+  resetOtpExpiresAt   DateTime?
+  failedLoginAttempts Int      @default(0)
+  lockedUntil         DateTime?
+  tokenVersion        Int      @default(1)
+  lastLoginAt         DateTime?
+
+  student       Student?
+  sessions      UserSession[]
+}
+
+model UserSession {
+  id           String   @id @default(cuid())
+  userId       Int
+  userAgent    String?
+  deviceType   String?  // mobile, tablet, desktop
+  browser      String?
+  os           String?
+  ipAddress    String?
+  lastActiveAt DateTime @default(now())
+  createdAt    DateTime @default(now())
+
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+}
+
+model Student {
+  id           Int      @id @default(autoincrement())
+  userId       Int      @unique
+  fullName     String?
+  fatherName   String?
+  profileImage String?
+  address      String?
+  village      String?
+  post         String?
+  district     String?
+  city         String?
+  state        String?
+  pincode      String?
+  bio          String?
+  joinDate     DateTime @default(now())
+
+  // Productivity Platform Fields
+  dailyGoalHours Float    @default(8.0)
+  currentStreak  Int      @default(0)
+  maxStreak      Int      @default(0)
+  lastAttendanceDate DateTime?
+  monthlyFee     Float    @default(500.0)
+
+  user         User     @relation(fields: [userId], references: [id])
+  attendances  Attendance[]
+  studyLogs    StudyLog[]
+  tasks        Task[]
+  routines     WeeklyRoutine[]
+  feePayments  FeePayment[]
+}
+
+model FeePayment {
+  id          Int      @id @default(autoincrement())
+  studentId   Int
+  month       Int      // 1-12
+  year        Int
+  amount      Float
+  paymentDate DateTime @default(now())
+  remarks     String?
+  
+  student     Student  @relation(fields: [studentId], references: [id])
+
+  @@index([studentId, month, year])
+}
+
+model WeeklyRoutine {
+  id               Int      @id @default(autoincrement())
+  studentId        Int
+  dayOfWeek        Int      // 0-6 (Sunday-Saturday)
+  subject          String
+  estimatedMinutes Int?
+  priority         String   @default("medium")
+  createdAt        DateTime @default(now())
+
+  student     Student  @relation(fields: [studentId], references: [id])
+}
+
+model Task {
+  id               Int      @id @default(autoincrement())
+  studentId        Int
+  title            String
+  isCompleted      Boolean  @default(false)
+  estimatedMinutes Int?
+  priority         String   @default("medium")
+  createdAt        DateTime @default(now())
+  completedAt      DateTime?
+
+  student     Student  @relation(fields: [studentId], references: [id])
+}
+
+model StudyLog {
+  id            Int      @id @default(autoincrement())
+  studentId     Int
+  date          DateTime @default(now())
+  subject       String?
+  topicsCovered String?
+  hoursSpent    Float?
+  productivityRating Int? // 1-5 scale
+
+  student       Student  @relation(fields: [studentId], references: [id])
+}
+
+model Attendance {
+  id            Int      @id @default(autoincrement())
+  studentId     Int
+  date          DateTime
+  checkInTime   DateTime?
+  checkOutTime  DateTime?
+  createdAt     DateTime @default(now())
+
+  student       Student  @relation(fields: [studentId], references: [id])
+
+  @@unique([studentId, date])
+}
